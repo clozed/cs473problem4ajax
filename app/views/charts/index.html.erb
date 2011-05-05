@@ -8,8 +8,6 @@
 		<%= link_to "Chatting room", chats_path unless !session[:user_id]%>
 	</p>
 	<h3>Click a seat to change to it!</h3>
-	<p>Welcome <%=session[:user_name]%>!</p>
-	<p>Welcome <%=session[:user_id]%>!</p>
 	<div id="chart">
 	<% align = "right" %>
 	<% @charts.each_with_index do |chart, index| %>
