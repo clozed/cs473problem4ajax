@@ -1,0 +1,14 @@
+<%= form_for(@chat, :remote => true) do |f| %>
+<div id="new_chat">
+  <div class="field">
+      <%= f.hidden_field :username %>
+  </div>
+
+  <div class="field">
+    <%= f.label :message %>
+    <%= f.text_field :message %>
+    <%= f.submit :"Send"%>
+  </div>
+	
+</div>
+<% end %>

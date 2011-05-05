@@ -1,0 +1,74 @@
+<div id="container">
+	<h1>Seating chart</h1>
+	<p>
+		<%= link_to "Logout", logout_path unless !session[:user_id]%>
+		<%= link_to "Login", login_path unless session[:user_id]%>
+		<%= link_to "Register", register_path unless session[:user_id]%>
+		<br />
+		<%= link_to "Chatting room", chats_path unless !session[:user_id]%>
+	</p>
+	<h3>Click a seat to change to it!</h3>
+	<p>Welcome <%=session[:user_name]%>!</p>
+	<p>Welcome <%=session[:user_id]%>!</p>
+	<div id="chart">
+	<% align = "right" %>
+	<% @charts.each_with_index do |chart, index| %>
+		<% if index%4 == 0 %>
+		<% if index != 0 %>
+		</div>
+		<% end %>
+			<% if align == "left" %>
+			<% align = "right" %>
+			<% elsif align = "left" %>
+			<% end %>
+		<div class="row" style="float:<%=align%>">
+		<% end %>
+		<a href="<%= root_path + chart.seat.to_s%>" id="<%= chart.seat.to_s%>" class="seat" onclick="">
+			<p>
+				Seat: <%=chart.seat%><br />
+				User: <span class="username"><%=chart.username%></span>
+			</p>
+			<% if chart.active%>
+			<p style="color:#aa0000;">
+				Active in Chat!
+			</p>
+			<% end %>
+		</a>
+	<% end %>
+	</div>
+<div style="clear:both;"></div>
+
+<script type="text/javascript">
+	$(document).ready(function() {  
+		$('a.seat').live({
+			click: function(event) {
+				event.preventDefault();
+	
+				$.ajax({
+					url: "<%= root_path%>" + $(this).attr('id'),
+					data: ({ remote: "true"}),
+					cache: false,
+					datatype: "xml",
+					success: function(data) {
+						$('#chart').html($(data).find('#chart').html());
+						var success = $(data).find('#flash-success');
+						var error = $(data).find('#flash-error');
+						
+						if ($('div .message').length === 0)
+							$('#message').append('<div id="messages"></div>');
+						
+						if (success.length > 0)
+							$('#messages').html($(data).find('#flash-success').html());
+						else if (error.length > 0)
+							$('#messages').html($(data).find('#flash-error').html());
+
+						if ($('#flash-error').length > 0) {
+							alert("truetrue");
+							$('#chart').prepend($('#flash-error').html());
+						}
+					}
+				});
+			}
+		});
+	});
+</script>

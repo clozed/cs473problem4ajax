@@ -1,0 +1,20 @@
+$('#chat').append( "<p style=\"padding:4px; margin:0;\"><span style=\"color:#0071ff;\"><%= escape_javascript(@chat.username == "" ? "<Anonymous>" : @chat.username)%></span>:<%=@chat.message%></p>");
+
+$('#new_chat')[0].reset();
+
+$(document).ready(function() {
+	setScrollBar();
+});
+
+$('form').live({
+	submit: function(event){
+		event.preventDefault();
+		setScrollBar();
+	}
+});
+
+
+function setScrollBar() {
+	//$('#chat').scrollTop = $('#chat').scrollHeight;
+	document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
+}

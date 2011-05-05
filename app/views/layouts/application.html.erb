@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Seat</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag 'jquery-1.4.4.min', 'rails', 'application' %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+
+<div id="message">
+<% if flash[:error] -%>
+  <h3 id="flash-error"><span style="margin:0 auto; color:#ff0000;"><%= flash[:error] %></span></h3>
+<% end -%>
+<% if flash[:success] -%>
+    <h3 id="flash-success"><span style="margin:0 auto; color:#22aa00;"><%= flash[:success] %></span></h3>
+<% end -%>
+</div>
+
+<%= yield %>
+
+</body>
+</html>
