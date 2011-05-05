@@ -1,8 +1,7 @@
 <h1>On going chats   </h1>
 <%= link_to 'Back to Seating Chart', charts_path %>
-
-<% if session[:user_name] != nil %>
-	<p>Welcome <%=session[:user_name]%>!</p>
+<% if session[:user_id] != nil %>
+	<p>Welcome <%= @username %>!</p>
 <% else %>
 	<p>Welcome! You may post messages anonymously.</p>
 

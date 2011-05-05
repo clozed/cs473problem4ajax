@@ -2,8 +2,9 @@ class ChatsController < ApplicationController
   # GET /chats
   # GET /chats.xml
   def index
+    @username  = User.first(:conditions => {:id=>session[:user_id]}).username
     @chats = Chat.all.last(60)
-    @chat = Chat.new(:username => session[:user_name])
+    @chat = Chat.new(:username => @username )
 
     respond_to do |format|
       format.html # index.html.erb
